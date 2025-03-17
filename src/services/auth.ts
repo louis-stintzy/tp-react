@@ -1,9 +1,16 @@
+import {
+  LoginCredentials,
+  RegisterCredentials,
+  UserData,
+} from '../@types/auth';
+
 export class AuthService {
-  _getUsers() {
-    return JSON.parse(localStorage.getItem('users')) || [];
+  _getUsers(): UserData[] | [] {
+    const users = localStorage.getItem('users');
+    return users ? (JSON.parse(users) as UserData[]) : [];
   }
 
-  _saveUsers(users) {
+  _saveUsers(users: UserData[]): void {
     localStorage.setItem('users', JSON.stringify(users));
   }
 
@@ -15,10 +22,11 @@ export class AuthService {
    * @param {string} password - Le mot de passe de l'utilisateur.
    * @returns {Promise<Object>} Une promesse qui résout l'objet utilisateur enregistré.
    */
-  register(nickname, email, password) {
+  register(data: RegisterCredentials): Promise<UserData> {
+    const { nickname, email, password } = data;
     return new Promise((resolve, reject) => {
       try {
-        const users = this._getUsers();
+        const users: UserData[] = this._getUsers();
         if (users.some((user) => user.email === email)) {
           throw new Error('Email already exists');
         }
@@ -29,7 +37,7 @@ export class AuthService {
           email,
           password,
           isLogged: true,
-        };
+        } as UserData;
 
         users.push(user);
         this._saveUsers(users);
@@ -37,7 +45,9 @@ export class AuthService {
 
         resolve(user);
       } catch (error) {
-        reject(error);
+        reject(
+          new Error(error instanceof Error ? error.message : String(error))
+        );
       }
     });
   }
@@ -49,7 +59,8 @@ export class AuthService {
    * @param {string} password - Le mot de passe de l'utilisateur.
    * @returns {Promise<Object>} Une promesse qui résout l'objet utilisateur authentifié.
    */
-  login(email, password) {
+  login(data: LoginCredentials): Promise<UserData> {
+    const { email, password } = data;
     return new Promise((resolve, reject) => {
       try {
         const users = this._getUsers();
@@ -67,7 +78,9 @@ export class AuthService {
 
         resolve(user);
       } catch (error) {
-        reject(error);
+        reject(
+          new Error(error instanceof Error ? error.message : String(error))
+        );
       }
     });
   }
@@ -78,10 +91,12 @@ export class AuthService {
    */
   logout() {
     const users = this._getUsers();
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const currentUser = localStorage.getItem('currentUser');
+    if (!currentUser) return;
 
     if (currentUser) {
-      const index = users.findIndex((u) => u.id === currentUser.id);
+      const currentUserParsed = JSON.parse(currentUser) as UserData;
+      const index = users.findIndex((u) => u.id === currentUserParsed.id);
       if (index !== -1) {
         users[index].isLogged = false;
       }
@@ -105,6 +120,7 @@ export class AuthService {
    * @returns {Object|null} L'objet utilisateur connecté ou null s'il n'y a aucun utilisateur connecté.
    */
   static getCurrentUser() {
-    return JSON.parse(localStorage.getItem('currentUser'));
+    const user = localStorage.getItem('currentUser');
+    return user ? (JSON.parse(user) as UserData) : null;
   }
 }
