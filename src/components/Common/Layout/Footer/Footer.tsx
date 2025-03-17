@@ -2,7 +2,7 @@ import './Footer.css';
 
 function Footer() {
   return (
-    <footer>
+    <footer className="footer">
       <p>© 2025 Moviz. Tous droits réservés</p>
     </footer>
   );
