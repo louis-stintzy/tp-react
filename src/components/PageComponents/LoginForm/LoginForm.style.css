@@ -68,3 +68,22 @@
 .connexion-form__button:hover {
   background-color: #ec7063;
 }
+
+.connexion-form__link-container--error {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.connexion-form__link-message--error {
+  line-height: 1.6;
+  background-color: #fee2e2;
+  color: #dc2626;
+}
+
+.connexion-form__link-message--success {
+  line-height: 1.6;
+  background-color: #dcfce7;
+  color: #16a34a;
+}

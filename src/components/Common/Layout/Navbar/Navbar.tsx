@@ -2,13 +2,21 @@ import { NavLink } from 'react-router-dom';
 import logo from '../../../../assets/logo.png';
 
 import './Navbar.css';
+import { useAuth } from '../../../../store/hooks/useAuth';
 
 function Navbar() {
+  const { isAuthenticated } = useAuth();
   const navLinks = [
     { title: 'Accueil', path: '/home' },
     { title: 'Films', path: '/movies' },
-    { title: 'Connexion', path: '/login' },
-    { title: 'Inscription', path: '/register' },
+    {
+      title: isAuthenticated ? 'Ajouter' : 'Connexion',
+      path: isAuthenticated ? '/add-movie' : '/login',
+    },
+    {
+      title: isAuthenticated ? 'Déconnexion' : 'Inscription',
+      path: isAuthenticated ? '/logout' : '/register',
+    },
   ];
   return (
     <header className="header">
