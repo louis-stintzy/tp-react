@@ -31,13 +31,13 @@ export class AuthService {
           throw new Error('Email already exists');
         }
 
-        const user = {
+        const user: UserData = {
           id: Date.now().toString(),
           nickname,
           email,
           password,
           isLogged: true,
-        } as UserData;
+        };
 
         users.push(user);
         this._saveUsers(users);
