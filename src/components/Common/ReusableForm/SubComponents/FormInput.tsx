@@ -35,7 +35,7 @@ export interface FormInputProps<T extends FieldValues>
   formattedTitle: string;
   label: string;
   id: Path<T>;
-  options?: { value: string; label: string }[];
+  options?: readonly { readonly value: string; readonly label: string }[];
   error?: string | null;
   register: UseFormRegister<T>;
 }

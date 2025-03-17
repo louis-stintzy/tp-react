@@ -26,9 +26,10 @@ import {
   UseFormSetValue,
   UseFormWatch,
 } from 'react-hook-form';
-import { FieldDesactivation, FormField } from '../../../../@types/form';
+
 import FormInput from './FormInput';
 import { useEffect, useMemo } from 'react';
+import { FieldDesactivation, FormField } from '../../../../@types/form';
 
 interface FormInputsProps<T extends FieldValues> {
   formattedTitle: string;
