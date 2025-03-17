@@ -1,11 +1,13 @@
 import { createBrowserRouter } from 'react-router-dom';
-import App from './App';
-import Home from './pages/Home/Home';
-import Movies from './pages/Movies/Movies';
-import Login from './pages/Login/Login';
-import Register from './pages/Register/Register';
-import NotFound from './pages/NotFound/NotFound';
-import AddMovie from './pages/AddMovie/AddMovie';
+import App from '../App';
+import Home from '../pages/Home/Home';
+import Movies from '../pages/Movies/Movies';
+import Login from '../pages/Login/Login';
+import Register from '../pages/Register/Register';
+import NotFound from '../pages/NotFound/NotFound';
+import AddMovie from '../pages/AddMovie/AddMovie';
+import Logout from '../pages/Logout/Logout';
+import ProtectedRoute from './ProtectedRoute';
 export const routerConfig = [
   {
     path: '/',
@@ -25,7 +27,11 @@ export const routerConfig = [
       },
       {
         path: 'add-movie',
-        element: <AddMovie />,
+        element: (
+          <ProtectedRoute>
+            <AddMovie />
+          </ProtectedRoute>
+        ),
       },
       {
         path: 'login',
@@ -34,6 +40,10 @@ export const routerConfig = [
       {
         path: 'register',
         element: <Register />,
+      },
+      {
+        path: 'logout',
+        element: <Logout />,
       },
       {
         path: '*',
