@@ -37,8 +37,9 @@ header {
 }
 
 .nav-logo img {
-  height: 5rem;
+  height: 5.5rem;
   width: auto;
+  margin-bottom: 0.25rem;
 }
 
 /* ----- Navigation Links ----- */
