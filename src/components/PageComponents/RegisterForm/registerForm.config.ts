@@ -7,7 +7,7 @@ export const registerFormConfig: FormConfig<RegisterCredentials> = {
   fields: [
     {
       label: 'Pseudo',
-      id: 'pseudo',
+      id: 'nickname',
       type: 'text',
       autoComplete: 'nickname',
       //   required: true,

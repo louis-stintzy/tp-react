@@ -1,5 +1,5 @@
 export interface RegisterCredentials {
-  pseudo: string;
+  nickname: string;
   email: string;
   password: string;
 }
